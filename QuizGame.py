@@ -122,7 +122,21 @@ class QuizGame:
     # 3. 퀴즈 목록 보기
     # ──────────────────────────────────────────
     def view_quizzes(self):
-        pass
+        questions = self.state_data.get('questions', [])
+
+        if not questions:
+            print("[!] 등록된 퀴즈가 없습니다.")
+            return
+
+        print("\n===== 퀴즈 목록 =====")
+        for i, q in enumerate(questions, start=1):
+            print(f"\nQ{i}. {q['question']}")
+            for choice in q['choices']:
+                print(f"   {choice}")
+            print(f"   정답: {q['answer']}")
+            # 힌트가 있을 때만 출력
+            if q.get('hint'):
+                print(f"   힌트: {q['hint']}")
 
     # ──────────────────────────────────────────
     # 4. 점수 확인
