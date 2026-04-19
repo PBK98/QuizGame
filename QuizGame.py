@@ -149,12 +149,45 @@ class QuizGame:
             print(f"{username}")
             print(f"   총 점수     : {info['score']}점")
             print(f"   퀴즈 참여 수: {info['solved_count']}회")
-            
+
     # ──────────────────────────────────────────
     # 5. 힌트 추가
     # ──────────────────────────────────────────
     def add_hint(self):
-        pass
+        questions = self.state_data.get('questions', [])
+
+        if not questions:
+            print("[!] 등록된 퀴즈가 없습니다.")
+            return
+
+        # 1) 문제 목록 출력
+        print("\n===== 힌트 추가 =====")
+        for i, q in enumerate(questions, start=1):
+            hint_status = "✅ 있음" if q.get('hint') else "❌ 없음"
+            print(f"{i}. {q['question']} [힌트: {hint_status}]")
+
+        # 2) 번호 선택
+        while True:
+            try:
+                num = int(input("힌트를 추가할 문제 번호를 선택하세요: "))
+                if 1 <= num <= len(questions):
+                    break
+                else:
+                    print(f"[!] 1~{len(questions)} 사이의 번호를 입력하세요.")
+            except ValueError:
+                print("[!] 숫자를 입력하세요.")
+
+        # 3) 힌트 입력 후 저장
+        hint = input("힌트를 입력하세요: ").strip()
+        if not hint:
+            print("[!] 힌트를 입력해야 합니다.")
+            return
+
+        self.state_data['questions'][num - 1]['hint'] = hint
+        save_data('state.json', self.state_data)
+        print(f"[+] 힌트가 저장되었습니다.")
+
+
 
     # ──────────────────────────────────────────
     # 6. 퀴즈 삭제
