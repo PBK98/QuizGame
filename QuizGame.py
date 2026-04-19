@@ -268,3 +268,5 @@ class QuizGame:
                 "solved_count": top_solved_count
             }
             print(f"[!] 전체 최고 점수가 갱신되었습니다. 사용자 : {top_user} ({top_score}점)")
+
+# 26.04.19 : 이후 추가 목록 -> defaultquiz.json , EOFError 추가
