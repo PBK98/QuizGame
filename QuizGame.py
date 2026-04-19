@@ -29,7 +29,47 @@ class QuizGame:
     # 1. 퀴즈 풀기
     # ──────────────────────────────────────────
     def solve_quiz(self):
-        pass
+        # 1) 사용자 이름 입력
+        username = input("사용자 이름을 입력하세요: ").strip()
+
+        # 2) 없는 사용자면 새로 등록
+        if username not in self.users_data:
+            print(f"[+] '{username}' 사용자를 새로 등록합니다.")
+            self.users_data[username] = {"score": 0, "solved_count": 0}
+            save_data('user.json', self.users_data)
+
+        self.current_user = username
+
+        # 3) 문제가 없으면 종료
+        questions = self.state_data.get('questions', [])
+        if not questions:
+            print("[!] 등록된 퀴즈가 없습니다.")
+            return
+
+        # 4) Quiz 클래스에 문제 넘겨서 실행
+        quiz = Quiz(questions)
+        
+        score, total = quiz.run_quiz()
+
+        # 5) 결과 출력
+        print(f"\n===== 결과 =====")
+        print(f"맞힌 문제: {score // 10} / {total}")
+        print(f"획득 점수: {score}점")
+
+        # 6) 사용자 데이터 업데이트 후 저장
+        # 문제를 풀기 전 점수를 저장
+        current_score = self.users_data[username].get('score', 0)
+
+        # 문제를 풀고 이전 점수와 비교
+        if score > current_score:
+            self.users_data[username]['score'] = score  # += 가 아닌 = 로 변경
+            print(f"[+] 최고 점수가 갱신되었습니다. ({current_score} → {score})")
+        else:
+            print(f"[-] 이전 점수({current_score})보다 낮아 저장되지 않았습니다. (현재: {score})")
+        
+        # 문제를 푼 횟수 +1 하고 해당 내용을 저장
+        self.users_data[username]['solved_count'] += 1
+        save_data('user.json', self.users_data)
     
     # ──────────────────────────────────────────
     # 2. 퀴즈 추가
