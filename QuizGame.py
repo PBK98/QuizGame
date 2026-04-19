@@ -187,10 +187,39 @@ class QuizGame:
         save_data('state.json', self.state_data)
         print(f"[+] 힌트가 저장되었습니다.")
 
-
-
     # ──────────────────────────────────────────
     # 6. 퀴즈 삭제
     # ──────────────────────────────────────────
     def delete_quiz(self):
-        pass
+        questions = self.state_data.get('questions', [])
+
+        if not questions:
+            print("[!] 삭제할 퀴즈가 없습니다.")
+            return
+
+        # 1) 문제 목록 출력
+        print("\n===== 퀴즈 삭제 =====")
+        for i, q in enumerate(questions, start=1):
+            print(f"{i}. {q['question']}")
+
+        # 2) 번호 선택
+        while True:
+            try:
+                num = int(input("삭제할 문제 번호를 선택하세요: "))
+                if 1 <= num <= len(questions):
+                    break
+                else:
+                    print(f"[!] 1~{len(questions)} 사이의 번호를 입력하세요.")
+            except ValueError:
+                print("[!] 숫자를 입력하세요.")
+
+        # 3) 삭제 확인
+        target = questions[num - 1]['question']
+        confirm = input(f"'{target}' 을 삭제하시겠습니까? (y/n): ").strip().lower()
+
+        if confirm == 'y':
+            self.state_data['questions'].pop(num - 1)
+            save_data('state.json', self.state_data)
+            print(f"[+] 퀴즈가 삭제되었습니다.")
+        else:
+            print("[-] 삭제를 취소했습니다.")
