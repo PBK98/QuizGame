@@ -75,7 +75,48 @@ class QuizGame:
     # 2. 퀴즈 추가
     # ──────────────────────────────────────────
     def add_quiz(self):
-        pass
+        print("\n===== 퀴즈 추가 =====")
+
+        # 1) 질문 입력
+        question = input("질문을 입력하세요: ").strip()
+        if not question:
+            print("[!] 질문을 입력해야 합니다.")
+            return
+
+        # 2) 보기 4개 입력
+        choices = []
+        for i in range(1, 5):
+            choice = input(f"{i}번 보기를 입력하세요: ").strip()
+            choices.append(f"{i}. {choice}")
+
+        # 3) 정답 입력
+        while True:
+            try:
+                answer_num = int(input("정답 번호를 입력하세요 (1~4): "))
+                if 1 <= answer_num <= 4:
+                    answer = choices[answer_num - 1]
+                    break
+                else:
+                    print("[!] 1~4 사이의 번호를 입력하세요.")
+            except ValueError:
+                print("[!] 숫자를 입력하세요.")
+
+        # 4) 힌트 입력 (선택)
+        hint = input("힌트를 입력하세요 (없으면 Enter): ").strip()
+
+        # 5) 새 문제 구성 후 저장
+        new_quiz = {
+            "question": question,
+            "choices": choices,
+            "answer": answer,
+            "hint": hint
+        }
+
+        self.state_data['questions'].append(new_quiz)
+        save_data('state.json', self.state_data)
+        print(f"[+] 퀴즈가 추가되었습니다.")
+
+
 
     # ──────────────────────────────────────────
     # 3. 퀴즈 목록 보기
