@@ -116,8 +116,6 @@ class QuizGame:
         save_data('state.json', self.state_data)
         print(f"[+] 퀴즈가 추가되었습니다.")
 
-
-
     # ──────────────────────────────────────────
     # 3. 퀴즈 목록 보기
     # ──────────────────────────────────────────
@@ -142,8 +140,16 @@ class QuizGame:
     # 4. 점수 확인
     # ──────────────────────────────────────────
     def check_score(self):
-        pass
+        if not self.users_data:
+            print("[!] 등록된 사용자가 없습니다.")
+            return
 
+        print("\n===== 점수 현황 =====")
+        for username, info in self.users_data.items():
+            print(f"{username}")
+            print(f"   총 점수     : {info['score']}점")
+            print(f"   퀴즈 참여 수: {info['solved_count']}회")
+            
     # ──────────────────────────────────────────
     # 5. 힌트 추가
     # ──────────────────────────────────────────
