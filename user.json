@@ -2,5 +2,9 @@
     "test": {
         "score": 50,
         "solved_count": 2
+    },
+    "test1": {
+        "score": 50,
+        "solved_count": 2
     }
 }
