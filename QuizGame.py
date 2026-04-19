@@ -20,7 +20,10 @@ def save_data(filename, data):
         json.dump(data, f, indent=4, ensure_ascii=False)
 class QuizGame:
     def __init__(self):
-        pass
+        self.state_data = load_data('state.json')   # 퀴즈 문제들
+        self.users_data = load_data('user.json')    # 사용자 정보들
+        self.current_user = None                    # 현재 로그인된 사용자
+
 
     # ──────────────────────────────────────────
     # 1. 퀴즈 풀기
