@@ -29,7 +29,7 @@ if __name__ == "__main__":
             elif choice == 5:
                 quizgame.add_hint()
             elif choice == 6:
-                quizgame.delete_quiz()
+                quizgame.delete_quiz()    
             elif choice == 0:
                 print("게임을 종료합니다.")
                 break

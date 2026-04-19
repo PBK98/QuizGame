@@ -1,10 +1,17 @@
 {
-    "test": {
-        "score": 50,
-        "solved_count": 2
+    "users" : {
+        "3": {
+            "score": 10,
+            "solved_count": 1
+        },
+        "test": {
+            "score": 20,
+            "solved_count": 2
+        }
     },
-    "test1": {
-        "score": 50,
+    "best_score": {
+        "username": "test",
+        "score": 20,
         "solved_count": 2
     }
 }

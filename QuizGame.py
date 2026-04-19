@@ -69,6 +69,9 @@ class QuizGame:
         
         # 문제를 푼 횟수 +1 하고 해당 내용을 저장
         self.users_data[username]['solved_count'] += 1
+
+        self._update_best_score() # 전체 사용자 중 최고 점수 갱신
+
         save_data('user.json', self.users_data)
     
     # ──────────────────────────────────────────
@@ -191,6 +194,7 @@ class QuizGame:
     # 6. 퀴즈 삭제
     # ──────────────────────────────────────────
     def delete_quiz(self):
+
         questions = self.state_data.get('questions', [])
 
         if not questions:
@@ -223,3 +227,30 @@ class QuizGame:
             print(f"[+] 퀴즈가 삭제되었습니다.")
         else:
             print("[-] 삭제를 취소했습니다.")
+
+    # ──────────────────────────────────────────
+    # 7. 최고 점수 업데이트
+    # ──────────────────────────────────────────
+    def _update_best_score(self):
+        """모든 사용자 중 최고 점수를 찾아 best_score 필드를 업데이트합니다."""
+        
+        # 1. 'best_score'를 제외한 실제 사용자 데이터만 필터링합니다.
+        #    딕셔너리 컴프리헨션을 사용하면 코드가 간결해집니다.
+        users_only = {user: data for user, data in self.users_data.items() if user != 'best_score'}
+
+        # 2. 사용자가 한 명이라도 있을 경우에만 최고 점수를 찾습니다.
+        if users_only:
+            # 3. max() 함수와 lambda를 사용해 점수가 가장 높은 사용자(key)를 찾습니다.
+            top_user = max(users_only, key=lambda user: users_only[user].get('score', 0))
+            
+            # 4. 찾은 사용자의 점수를 가져옵니다.
+            top_score = users_only[top_user].get('score', 0)
+            top_solved_count = users_only[top_user].get('solved_count', 0)
+            
+            # 5. self.users_data의 'best_score' 필드를 업데이트합니다.
+            self.users_data['best_score'] = {
+                'username': top_user,
+                'score': top_score,
+                "solved_count": top_solved_count
+            }
+            print(f"[!] 전체 최고 점수가 갱신되었습니다. 사용자 : {top_user} ({top_score}점)")
