@@ -143,15 +143,29 @@ class QuizGame:
     # 4. 점수 확인
     # ──────────────────────────────────────────
     def check_score(self):
-        if not self.users_data:
+        users_dict = self.users_data.get('users', [])
+        bestscore = self.users_data.get('best_score', [])
+        if not users_dict:
             print("[!] 등록된 사용자가 없습니다.")
             return
 
         print("\n===== 점수 현황 =====")
-        for username, info in self.users_data.items():
+        for username, info in users_dict.items():
             print(f"{username}")
             print(f"   총 점수     : {info['score']}점")
-            print(f"   퀴즈 참여 수: {info['solved_count']}회")
+
+        print("\n--- 전체 최고 기록 ---")
+        
+        # self.best_score에 정보가 있는지 확인합니다.
+        if bestscore and bestscore.get('username'):
+            best_user = bestscore.get('username')
+            best_val = bestscore.get('score')
+            print(f"사용자: {best_user}")
+            print(f"점수  : {best_val}점")
+        else:
+            # 아직 아무도 퀴즈를 풀지 않아 최고 기록이 없는 경우
+            print("아직 최고 기록이 없습니다.")
+
 
     # ──────────────────────────────────────────
     # 5. 힌트 추가
