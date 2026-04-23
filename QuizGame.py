@@ -21,7 +21,12 @@ def save_data(filename, data):
 class QuizGame:
     def __init__(self):
         self.state_data = load_data('state.json')   # 퀴즈 문제들
-        self.users_data = load_data('user.json')    # 사용자 정보들
+        
+        # user.json 데이터를 불러와 users와 best_score로 분리
+        data = load_data('user.json')
+        self.users = data.get('users', {})
+        self.best_score = data.get('best_score', {})
+        
         self.current_user = None                    # 현재 로그인된 사용자
 
 
@@ -33,10 +38,9 @@ class QuizGame:
         username = input("사용자 이름을 입력하세요: ").strip()
 
         # 2) 없는 사용자면 새로 등록
-        if username not in self.users_data:
+        if username not in self.users:
             print(f"[+] '{username}' 사용자를 새로 등록합니다.")
-            self.users_data[username] = {"score": 0, "solved_count": 0}
-            save_data('user.json', self.users_data)
+            self.users[username] = {"score": 0, "solved_count": 0}
 
         self.current_user = username
 
@@ -58,21 +62,25 @@ class QuizGame:
 
         # 6) 사용자 데이터 업데이트 후 저장
         # 문제를 풀기 전 점수를 저장
-        current_score = self.users_data[username].get('score', 0)
+        current_score = self.users[username].get('score', 0)
 
         # 문제를 풀고 이전 점수와 비교
         if score > current_score:
-            self.users_data[username]['score'] = score  # += 가 아닌 = 로 변경
+            self.users[username]['score'] = score
             print(f"[+] 최고 점수가 갱신되었습니다. ({current_score} → {score})")
         else:
             print(f"[-] 이전 점수({current_score})보다 낮아 저장되지 않았습니다. (현재: {score})")
         
         # 문제를 푼 횟수 +1 하고 해당 내용을 저장
-        self.users_data[username]['solved_count'] += 1
+        self.users[username]['solved_count'] += 1
 
         self._update_best_score() # 전체 사용자 중 최고 점수 갱신
 
-        save_data('user.json', self.users_data)
+        data_to_save = {
+            'users': self.users,
+            'best_score': self.best_score
+        }
+        save_data('user.json', data_to_save)
     
     # ──────────────────────────────────────────
     # 2. 퀴즈 추가
@@ -143,13 +151,18 @@ class QuizGame:
     # 4. 점수 확인
     # ──────────────────────────────────────────
     def check_score(self):
+<<<<<<< HEAD
         users_dict = self.users_data.get('users', [])
         bestscore = self.users_data.get('best_score', [])
         if not users_dict:
+=======
+        if not self.users:
+>>>>>>> feature/main
             print("[!] 등록된 사용자가 없습니다.")
             return
 
         print("\n===== 점수 현황 =====")
+<<<<<<< HEAD
         for username, info in users_dict.items():
             print(f"{username}")
             print(f"   총 점수     : {info['score']}점")
@@ -166,6 +179,16 @@ class QuizGame:
             # 아직 아무도 퀴즈를 풀지 않아 최고 기록이 없는 경우
             print("아직 최고 기록이 없습니다.")
 
+=======
+        for username, info in self.users.items():
+            print(f"{username}")
+            print(f"   총 점수     : {info.get('score', 0)}점")
+            print(f"   퀴즈 참여 수: {info.get('solved_count', 0)}회")
+
+        if self.best_score and self.best_score.get('username'):
+            print("\n--- 전체 최고 기록 ---")
+            print(f"🏆 {self.best_score['username']}님: {self.best_score['score']}점")
+>>>>>>> feature/main
 
     # ──────────────────────────────────────────
     # 5. 힌트 추가
@@ -246,27 +269,24 @@ class QuizGame:
     # 7. 최고 점수 업데이트
     # ──────────────────────────────────────────
     def _update_best_score(self):
-        """모든 사용자 중 최고 점수를 찾아 best_score 필드를 업데이트합니다."""
-        
-        # 1. 'best_score'를 제외한 실제 사용자 데이터만 필터링합니다.
-        #    딕셔너리 컴프리헨션을 사용하면 코드가 간결해집니다.
-        users_only = {user: data for user, data in self.users_data.items() if user != 'best_score'}
+        """self.users를 읽어 self.best_score를 업데이트합니다."""
+        if not self.users:
+            return
 
-        # 2. 사용자가 한 명이라도 있을 경우에만 최고 점수를 찾습니다.
-        if users_only:
-            # 3. max() 함수와 lambda를 사용해 점수가 가장 높은 사용자(key)를 찾습니다.
-            top_user = max(users_only, key=lambda user: users_only[user].get('score', 0))
-            
-            # 4. 찾은 사용자의 점수를 가져옵니다.
-            top_score = users_only[top_user].get('score', 0)
-            top_solved_count = users_only[top_user].get('solved_count', 0)
-            
-            # 5. self.users_data의 'best_score' 필드를 업데이트합니다.
-            self.users_data['best_score'] = {
+        top_user = max(self.users, key=lambda user: self.users[user].get('score', 0))
+        top_score = self.users[top_user].get('score', 0)
+        
+        current_best_score = self.best_score.get('score', 0)
+        if top_score > current_best_score:
+            self.best_score = {
                 'username': top_user,
                 'score': top_score,
-                "solved_count": top_solved_count
+                'solved_count': self.users[top_user].get('solved_count', 0)
             }
+<<<<<<< HEAD
             print(f"[!] 전체 최고 점수가 갱신되었습니다. 사용자 : {top_user} ({top_score}점)")
 
 # 26.04.19 : 이후 추가 목록 -> defaultquiz.json , EOFError 추가
+=======
+            print(f"[!] 전체 최고 점수가 갱신되었습니다. 현재 1위 : {top_user} ({top_score}점)")
+>>>>>>> feature/main
