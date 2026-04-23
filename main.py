@@ -39,11 +39,11 @@ if __name__ == "__main__":
         except ValueError:
             print("\n[!] 숫자로 된 메뉴 번호를 입력해주세요.")
 
-        # ✨ KeyboardInterrupt (Ctrl+C)를 별도로 처리합니다.
-        except KeyboardInterrupt:
+        # KeyboardInterrupt (Ctrl+C) 및 EOFError(Ctrl+D) 처리
+        except (KeyboardInterrupt, EOFError):
             print("\n\n[!] 작업을 취소하고 메뉴로 돌아갑니다.")
 
-        # ✨ 그 외 예상치 못한 모든 오류에 대한 안전망
+        # 예상치 못한 모든 오류에 대한 안전망
         except Exception as e:
             print(f"\n[!] 예상치 못한 오류가 발생했습니다: {e}")
             print("메뉴로 돌아갑니다.")
