@@ -157,56 +157,19 @@ class QuizGame:
     # 4. 점수 확인
     # ──────────────────────────────────────────
     def check_score(self):
-<<<<<<< HEAD
-<<<<<<< HEAD
-        users_dict = self.users_data.get('users', [])
-        bestscore = self.users_data.get('best_score', [])
-        if not users_dict:
-=======
         if not self.users:
->>>>>>> feature/main
-=======
-        if not self.users:
->>>>>>> feature/main
             print("[!] 등록된 사용자가 없습니다.")
             return
 
         print("\n===== 점수 현황 =====")
-<<<<<<< HEAD
-<<<<<<< HEAD
-        for username, info in users_dict.items():
-            print(f"{username}")
-            print(f"   총 점수     : {info['score']}점")
-
-        print("\n--- 전체 최고 기록 ---")
-        
-        # self.best_score에 정보가 있는지 확인합니다.
-        if bestscore and bestscore.get('username'):
-            best_user = bestscore.get('username')
-            best_val = bestscore.get('score')
-            print(f"사용자: {best_user}")
-            print(f"점수  : {best_val}점")
-        else:
-            # 아직 아무도 퀴즈를 풀지 않아 최고 기록이 없는 경우
-            print("아직 최고 기록이 없습니다.")
-
-=======
         for username, info in self.users.items():
             print(f"{username}")
-=======
-        for username, info in self.users.items():
-            print(f"{username}")
->>>>>>> feature/main
             print(f"   총 점수     : {info.get('score', 0)}점")
             print(f"   퀴즈 참여 수: {info.get('solved_count', 0)}회")
 
         if self.best_score and self.best_score.get('username'):
             print("\n--- 전체 최고 기록 ---")
             print(f"🏆 {self.best_score['username']}님: {self.best_score['score']}점")
-<<<<<<< HEAD
->>>>>>> feature/main
-=======
->>>>>>> feature/main
 
     # ──────────────────────────────────────────
     # 5. 힌트 추가
@@ -301,14 +264,4 @@ class QuizGame:
                 'score': top_score,
                 'solved_count': self.users[top_user].get('solved_count', 0)
             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-            print(f"[!] 전체 최고 점수가 갱신되었습니다. 사용자 : {top_user} ({top_score}점)")
-
-# 26.04.19 : 이후 추가 목록 -> defaultquiz.json , EOFError 추가
-=======
             print(f"[!] 전체 최고 점수가 갱신되었습니다. 현재 1위 : {top_user} ({top_score}점)")
->>>>>>> feature/main
-=======
-            print(f"[!] 전체 최고 점수가 갱신되었습니다. 현재 1위 : {top_user} ({top_score}점)")
->>>>>>> feature/main
