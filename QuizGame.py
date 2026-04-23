@@ -8,16 +8,18 @@ def load_data(filename):
         # json의 open 함수를 사용해서 filename에 담긴 파일을 읽기 모드('r')로 열고, encoding은 utf-8로 설정한다. 그리고 그 파일을 f라는 변수에 담는다.(as f)
         with open(filename, 'r', encoding='utf-8') as f:
             return json.load(f)
-    except FileNotFoundError:
+    except (FileNotFoundError, json.JSONDecodeError):
         if "user" in filename:
             return {"username": "Guest", "solved_count": 0, "score": 0}
         if "state" in filename:
+            print("\n[!] {filename} 데이터 파일이 손상되었거나 없습니다. 초기화합니다.")
             return {"questions": []}
         return None
 
 def save_data(filename, data):
     with open(filename, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
+        
 class QuizGame:
     def __init__(self):
         self.state_data = load_data('state.json')   # 퀴즈 문제들
