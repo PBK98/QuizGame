@@ -210,12 +210,13 @@ bumkyu84259392@c5r8s4 QuizGame % git branch
 ## 📁 파일 구조
 
 ```
-Quiz/
-├── main.py        # 프로그램 시작 및 메인 메뉴 관리
-├── QuizGame.py    # 핵심 로직 및 기능 클래스 모음
-├── Quiz.py        # 퀴즈 풀기 선택 시 실행되는 클래스
-├── user.json      # 사용자 정보 데이터베이스
-└── state.json     # 퀴즈 데이터 저장 파일
+QuizGame/
+├── main.py             # 프로그램 시작 및 메인 메뉴 관리
+├── QuizGame.py         # 핵심 로직 및 기능 클래스 모음
+├── Quiz.py             # 퀴즈 풀기 선택 시 실행되는 클래스
+├── user.json           # 사용자 정보 데이터베이스
+├── state.json          # 퀴즈 데이터 저장 파일
+└── defaultstate.json  # state.json 손상 시 복구용 기본 데이터
 ```
 
 ---
@@ -234,11 +235,16 @@ Quiz/
 
 ```json
 {
-  "quizzes": [
+  "questions": [
     {
       "question": "질문 내용",
-      "choices": ["선택지1", "선택지2", "선택지3", "선택지4"],
-      "answer": "정답",
+      "choices": [
+        "1. 선택지1",
+        "2. 선택지2",
+        "3. 선택지3",
+        "4. 선택지4"
+      ],
+      "answer": "1. 정답",
       "hint": ""
     }
   ]
@@ -247,9 +253,17 @@ Quiz/
 
 ### 📄 user.json
 사용자 정보 및 점수 데이터가 저장되는 파일입니다.
+사용자 목록과 전체 최고 기록을 나누어 관리합니다.
 ```json
 {
-    "test": {
+    "users": {
+        "test": {
+            "score": 50,
+            "solved_count": 2
+        }
+    },
+    "best_score": {
+        "username": "test",
         "score": 50,
         "solved_count": 2
     }
