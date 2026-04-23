@@ -10,10 +10,14 @@ def load_data(filename):
             return json.load(f)
     except (FileNotFoundError, json.JSONDecodeError):
         if "user" in filename:
-            return {"username": "Guest", "solved_count": 0, "score": 0}
+            return {"users": {}, "best_score": {}}
         if "state" in filename:
-            print("\n[!] {filename} 데이터 파일이 손상되었거나 없습니다. 초기화합니다.")
-            return {"questions": []}
+            print(f"\n[!] {filename} 데이터 파일이 손상되었거나 없습니다. 초기화합니다.")
+            try:
+                with open('defaultstate.json', 'r', encoding='utf-8') as default_f:
+                    return json.load(default_f)
+            except (FileNotFoundError, json.JSONDecodeError):
+                return {"questions": []}
         return None
 
 def save_data(filename, data):
