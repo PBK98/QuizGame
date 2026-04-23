@@ -152,9 +152,13 @@ class QuizGame:
     # ──────────────────────────────────────────
     def check_score(self):
 <<<<<<< HEAD
+<<<<<<< HEAD
         users_dict = self.users_data.get('users', [])
         bestscore = self.users_data.get('best_score', [])
         if not users_dict:
+=======
+        if not self.users:
+>>>>>>> feature/main
 =======
         if not self.users:
 >>>>>>> feature/main
@@ -162,6 +166,7 @@ class QuizGame:
             return
 
         print("\n===== 점수 현황 =====")
+<<<<<<< HEAD
 <<<<<<< HEAD
         for username, info in users_dict.items():
             print(f"{username}")
@@ -182,12 +187,19 @@ class QuizGame:
 =======
         for username, info in self.users.items():
             print(f"{username}")
+=======
+        for username, info in self.users.items():
+            print(f"{username}")
+>>>>>>> feature/main
             print(f"   총 점수     : {info.get('score', 0)}점")
             print(f"   퀴즈 참여 수: {info.get('solved_count', 0)}회")
 
         if self.best_score and self.best_score.get('username'):
             print("\n--- 전체 최고 기록 ---")
             print(f"🏆 {self.best_score['username']}님: {self.best_score['score']}점")
+<<<<<<< HEAD
+>>>>>>> feature/main
+=======
 >>>>>>> feature/main
 
     # ──────────────────────────────────────────
@@ -284,9 +296,13 @@ class QuizGame:
                 'solved_count': self.users[top_user].get('solved_count', 0)
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
             print(f"[!] 전체 최고 점수가 갱신되었습니다. 사용자 : {top_user} ({top_score}점)")
 
 # 26.04.19 : 이후 추가 목록 -> defaultquiz.json , EOFError 추가
+=======
+            print(f"[!] 전체 최고 점수가 갱신되었습니다. 현재 1위 : {top_user} ({top_score}점)")
+>>>>>>> feature/main
 =======
             print(f"[!] 전체 최고 점수가 갱신되었습니다. 현재 1위 : {top_user} ({top_score}점)")
 >>>>>>> feature/main
