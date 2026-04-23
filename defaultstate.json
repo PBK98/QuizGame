@@ -1,0 +1,59 @@
+{
+    "questions": [
+        {
+            "question": "Codyssey 교육장 출입 가능시간은 몇시인가요?",
+            "choices": [
+                "1. 24시간",
+                "2. am 07:00 ~ pm 06:30",
+                "3. am 06:00 ~ pm 04:00",
+                "4. pm 01:00 ~ am 00:00"
+            ],
+            "answer": "1. 24시간",
+            "hint": "1"
+        },
+        {
+            "question": "Codyssey 홈페이지의 도메인 주소는 무엇일까요?",
+            "choices": [
+                "1. Codyssey.net",
+                "2. Codyssey.com",
+                "3. Codyssey01.kr",
+                "4. Codyssey.kr"
+            ],
+            "answer": "4. Codyssey.kr",
+            "hint": ""
+        },
+        {
+            "question": "현재 루키마리너가 이용할 수 없는 층은 몇층일까요?",
+            "choices": [
+                "1. 1층",
+                "2. 2층",
+                "3. 4층",
+                "4. 5층"
+            ],
+            "answer": "2. 2층",
+            "hint": ""
+        },
+        {
+            "question": "Codyssey 1기 입학 연수과정은 언제까지일까요?",
+            "choices": [
+                "1. 26.04.21",
+                "2. 26.04.22",
+                "3. 26.04.23",
+                "4. 26.04.24"
+            ],
+            "answer": "4. 26.04.24",
+            "hint": ""
+        },
+        {
+            "question": "Codyssey Facilitator 의 닉네임이 아닌것은 무엇일까요?",
+            "choices": [
+                "1. 스톰",
+                "2. 써지",
+                "3. 아이스",
+                "4. 포그"
+            ],
+            "answer": "3. 아이스",
+            "hint": ""
+        }
+    ]
+}
