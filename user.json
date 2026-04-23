@@ -2,19 +2,32 @@
     "users": {
         "3": {
             "score": 10,
-            "solved_count": 2
+            "solved_count": 3
         },
         "test": {
             "score": 50,
-            "solved_count": 3
+            "solved_count": 4
         },
         "1": {
+            "score": 10,
+            "solved_count": 1
+        },
+        "tes": {
+            "score": 10,
+            "solved_count": 1
+        },
+        "t": {
+            "score": 10,
+            "solved_count": 1
+        },
+        "tasetq": {
             "score": 10,
             "solved_count": 1
         }
     },
     "best_score": {
         "username": "test",
-        "score": 50
+        "score": 50,
+        "solved_count": 4
     }
 }
