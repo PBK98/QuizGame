@@ -41,8 +41,12 @@ class QuizGame:
     # ──────────────────────────────────────────
     def solve_quiz(self):
         # 1) 사용자 이름 입력
-        username = input("사용자 이름을 입력하세요: ").strip()
-
+        try:
+            username = input("사용자 이름을 입력하세요: ").strip()
+        except(KeyboardInterrupt, EOFError):
+            print("\n[!] 작업을 취소하고 메뉴로 돌아갑니다.")
+            return
+            
         # 2) 없는 사용자면 새로 등록
         if username not in self.users:
             print(f"[+] '{username}' 사용자를 새로 등록합니다.")
