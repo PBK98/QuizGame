@@ -38,9 +38,15 @@ class Quiz:
                     continue # 힌트를 봤으니 다시 입력을 받습니다.
 
                 # 2. 정답/오답 처리 로직 추가
-                # (예외 처리는 나중에 하신다고 하니, 일단 숫자가 잘 입력되었다고 가정합니다.)
-                user_answer_num = int(user_input)
-                user_answer_text = q['choices'][user_answer_num - 1]
+                try:
+                    user_answer_num = int(user_input)
+                    user_answer_text = q['choices'][user_answer_num - 1]
+                except ValueError:
+                    print("[!] 숫자를 입력해주세요.")
+                    continue
+                except IndexError:
+                    print("[!] 범위를 벗어난 숫자를 입력했습니다.")
+                    continue
 
                 if user_answer_text == q['answer']:
                     print("정답입니다!")
