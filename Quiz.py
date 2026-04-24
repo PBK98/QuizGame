@@ -40,6 +40,9 @@ class Quiz:
                 # 2. 정답/오답 처리 로직 추가
                 try:
                     user_answer_num = int(user_input)
+                    if user_answer_num == 0:
+                        print("[!] 1~4 사이의 숫자를 입력해주세요.")
+                        continue
                     user_answer_text = q['choices'][user_answer_num - 1]
                 except ValueError:
                     print("[!] 숫자를 입력해주세요.")
