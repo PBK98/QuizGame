@@ -274,3 +274,32 @@ QuizGame/
 ## 🛠️ 사용 기술
 - **Language** : Python
 - **Version Control** : Git / GitHub
+
+---
+## 📷 실행 화면
+---
+```text
+branch 사용 로그
+(git log --oneline --graph)
+```
+![alt text](<images/스크린샷 2026-04-23 오후 10.10.49.png>)
+```text
+main.py 실행 화면
+```
+![alt text](<images/스크린샷 2026-04-23 오후 10.14.07.png>) 
+
+```text
+퀴즈 추가, 퀴즈 목록 화면
+```
+![alt text](<images/스크린샷 2026-04-23 오후 10.26.43.png>) 
+![alt text](<images/스크린샷 2026-04-23 오후 10.26.55.png>) 
+
+```text
+파이썬 버전 확인
+```
+![alt text](<images/스크린샷 2026-04-23 오후 10.11.55.png>) 
+
+```text
+git 설정 확인 (git config --list)
+```
+![alt text](<images/스크린샷 2026-04-23 오후 10.33.45.png>) 
